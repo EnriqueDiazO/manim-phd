@@ -20,7 +20,7 @@ Note, there are two versions of manim.  This repository began as a personal proj
 
 ## Notes
 
-## This is afork (EnriqueDiazO/manim-phd)
+## This is a fork (EnriqueDiazO/manim-phd)
 
 This repository is a **fork of ManimGL (3b1b/manim)** used as my working base to build and maintain **PhD / doctoral research animations** (scenes, experiments, and figure reconstructions).
 
