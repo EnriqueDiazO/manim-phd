@@ -1,2 +1,25 @@
+[tool.poetry]
+name = "manim-phd-dev"
+version = "0.0.0"
+description = "Dev environment for my ManimGL fork (manim-phd)."
+authors = ["Enrique Diaz Ocampo <you@example.com>"]
+package-mode = false
+
+[tool.poetry.dependencies]
+python = ">=3.10,<3.11"
+
+# deps runtime que ya viste que faltan / típicas de ManimGL
+numpy = ">=1.23,<2.0"
+trimesh = "^4.0"
+
+# para evitar el warning/rotura de pkg_resources a futuro
+setuptools = "<81"
+
+[tool.poetry.group.dev.dependencies]
+ruff = "^0.6.0"
+black = "^24.0.0"
+
 [build-system]
-requires = ["setuptools", "wheel"]
+requires = ["setuptools>=61", "wheel"]
+build-backend = "setuptools.build_meta"
+

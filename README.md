@@ -18,94 +18,63 @@ Note, there are two versions of manim.  This repository began as a personal proj
 > [!Warning]
 > **WARNING:** These instructions are for ManimGL _only_. Trying to use these instructions to install [Manim Community/manim](https://github.com/ManimCommunity/manim) or instructions there to install this version will cause problems. You should first decide which version you wish to install, then only follow the instructions for your desired version.
 
-> [!Note]
-> **Note**: To install manim directly through pip, please pay attention to the name of the installed package. This repository is ManimGL of 3b1b. The package name is `manimgl` instead of `manim` or `manimlib`. Please use `pip install manimgl` to install the version in this repository.
+## Notes
 
-Manim runs on Python 3.7 or higher.
+## This is afork (EnriqueDiazO/manim-phd)
 
-System requirements are [FFmpeg](https://ffmpeg.org/), [OpenGL](https://www.opengl.org/) and [LaTeX](https://www.latex-project.org) (optional, if you want to use LaTeX).
-For Linux, [Pango](https://pango.org) along with its development headers are required. See instruction [here](https://github.com/ManimCommunity/ManimPango#building).
+This repository is a **fork of ManimGL (3b1b/manim)** used as my working base to build and maintain **PhD / doctoral research animations** (scenes, experiments, and figure reconstructions).
 
+The upstream project is here: https://github.com/3b1b/manim
 
-### Directly
+### Install (Ubuntu + Poetry + pyenv)
 
-```sh
-# Install manimgl
-pip install manimgl
+> **Recommended:** use Python **3.10.x** for ManimGL v1.7.2 compatibility.
 
-# Try it out
-manimgl
+#### 1) System dependencies (Ubuntu)
+Install OpenGL / FFmpeg / Pango / Cairo headers, etc.:
+
+```bash
+./scripts/install_ubuntu_deps.sh
 ```
 
-For more options, take a look at the [Using manim](#using-manim) sections further below.
+#### 2) Create Poetry env using pyenv (Python 3.10)
 
-If you want to hack on manimlib itself, clone this repository and in that directory execute:
+```bash
+pyenv install -s 3.10.14
+pyenv shell 3.10.14
 
-```sh
-# Install manimgl
-pip install -e .
+poetry env use "$(pyenv which python)"
+poetry lock
+poetry install
 
-# Try it out
-manimgl example_scenes.py OpeningManimExample
-# or
-manim-render example_scenes.py OpeningManimExample
 ```
 
-### Directly (Windows)
-
-1. [Install FFmpeg](https://www.wikihow.com/Install-FFmpeg-on-Windows).
-2. Install a LaTeX distribution. [MiKTeX](https://miktex.org/download) is recommended.
-3. Install the remaining Python packages.
-    ```sh
-    git clone https://github.com/3b1b/manim.git
-    cd manim
-    pip install -e .
-    manimgl example_scenes.py OpeningManimExample
-    ```
-
-### Mac OSX
-
-1. Install FFmpeg, LaTeX in terminal using homebrew.
-    ```sh
-    brew install ffmpeg mactex
-    ```
-    <details>
-      <summary>💡 An alternative to heavyweight MacTeX bundle.</summary>
-
-      > To avoid installing the full MacTeX bundle, which is ~6GB, you can alternatively install the
-      > lightweight [BasicTeX](https://formulae.brew.sh/cask/basictex) and then gradually add
-      > only the LaTeX packages you actually need. A list of packages sufficient to run examples can 
-      > be found [here](https://github.com/3b1b/manim/issues/2133#issuecomment-2414547866).
-      > For an overview of the MacTeX installer bundles, see https://www.tug.org/mactex/.
-    </details>
-
-2. If you are using an ARM-based processor, install Cairo. 
-    ```sh
-    arch -arm64 brew install pkg-config cairo
-    ```
-   
-3. Install latest version of manim using these command.
-    ```sh
-    git clone https://github.com/3b1b/manim.git
-    cd manim
-    pip install -e .
-    manimgl example_scenes.py OpeningManimExample (make sure to add manimgl to path first.)
-    ```
-
-## Anaconda Install
-
-1. Install LaTeX as above.
-2. Create a conda environment using `conda create -n manim python=3.9`.
-3. Activate the environment using `conda activate manim`.
-4. Install manimgl using `pip install -e .`.
-
-
-## Using manim
-Try running the following:
-```sh
-manimgl example_scenes.py OpeningManimExample
+#### 3) Install this fork in editable mode (inside Poetry env)
+```bash
+poetry run pip install -e .
 ```
-This should pop up a window playing a simple scene.
+
+#### 4) Smoke test
+```bash
+poetry run manimgl --version
+```
+
+#### 5) Run a scene
+```bash
+poetry run manimgl example_scenes.py OpeningManimExample
+```
+
+### Run scenes interactively (menu / loop)
+
+This fork includes a small helper script to **list all Scene subclasses in a given `.py` file**
+and let you **run them repeatedly** by selecting a number or name.
+
+#### Example: run the slides demo with a menu
+
+```bash
+poetry run python tools/runloop.py tools/slidesdemo.py
+```
+
 
 Look through the [example scenes](https://3b1b.github.io/manim/getting_started/example_scenes.html) to see examples of the library's syntax, animation types and object types. In the [3b1b/videos](https://github.com/3b1b/videos) repo, you can see all the code for 3blue1brown videos, though code from older videos may not be compatible with the most recent version of manim. The readme of that repo also outlines some details for how to set up a more interactive workflow, as shown in [this manim demo video](https://www.youtube.com/watch?v=rbu7Zu5X1zI) for example.
 
